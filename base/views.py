@@ -16,7 +16,7 @@ def departmentAPI(request, id = 0):
         departments_seializer = DepartmentSerializer(departments, many = True)
         return JsonResponse(departments_seializer.data, safe=False)
     
-    elif request.methd == 'POST':
+    elif request.method == 'POST':
         departments_data = JSONParser().parse(request)
         departments_seializer = DepartmentSerializer(data = departments_data)
 
