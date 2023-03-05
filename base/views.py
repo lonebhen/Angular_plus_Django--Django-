@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers  import JSONParser
 from django.http.response import  JsonResponse
+from django.core.files.storage import default_storage
 
 
 from base.models import  Departments, Employees
@@ -74,4 +75,12 @@ def employeeAPI(request, id=0):
         employee  = Employees.objects.get(EmployeeId = id)
         employee.delete()
         return JsonResponse("Succesfully Deleted Employee", safe=False)
+    
+
+@csrf_exempt
+def save_file(request):
+    file = request.FILES['file']
+    file_name = default_storage.save(file.name, file)
+    return JsonResponse(file_name, safe=False)
+
 
